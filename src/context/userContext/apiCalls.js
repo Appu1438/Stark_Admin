@@ -4,8 +4,8 @@ import { createUserFailure, createUserStart, createUserSuccess, deleteUserFailur
 export const getUsers = async (dispatch) => {
     dispatch(getUsersStart());
     try {
-        const res = await axiosInstance.get(`users/`);
-        dispatch(getUsersSuccess(res.data));
+        const res = await axiosInstance.get(`/users`);
+        dispatch(getUsersSuccess(res.data.users));
     } catch (error) {
         console.error("Failed to fetch users:", error);
         dispatch(getUsersFailure());

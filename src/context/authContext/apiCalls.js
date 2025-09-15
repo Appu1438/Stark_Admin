@@ -4,31 +4,50 @@ import { fetchUserFailure, fetchUserStart, fetchUserSuccess, loginFailure, login
 import axiosInstance from '../../api/axiosInstance'
 import { REACT_APP_API_URL } from '../../api';
 
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export const login = async (user, dispatch) => {
     dispatch(loginStart());
 
     try {
-        // Make the login request
-        const res = await axiosInstance.post(`auth/login`, user, { withCredentials: true });
+        const res = await axiosInstance.post(`/login`, user);
 
-        // Log the response from the server
-        console.log('Login Response:', res);
+        console.log("Login Response:", res);
 
-        // Dispatch success action with user data
-        dispatch(loginSuccess(res.data));
+        dispatch(loginSuccess(res.data.admin));
+
+        // ✅ Show toast on success
+        toast.success("Login successful 🎉", {
+            position: "top-right",
+            autoClose: 3000,
+        });
     } catch (error) {
-        console.error('Login error:', error); // Log the error details
+        console.error("Login error:", error);
+
         dispatch(loginFailure());
+
+        // ✅ Show toast on error
+        toast.error(
+            error.response?.data?.message || "Login failed. Please try again.",
+            {
+                position: "top-right",
+                autoClose: 4000,
+            }
+        );
     }
 };
 
-export const logout = async () => {
+
+export const logout = async (user) => {
     try {
 
-        const response = await axiosInstance.post('auth/logout', {}, { withCredentials: true });
+        console.log(user)
+        const response = await axiosInstance.post(`/logout/${user._id}`);
         if (response.status == 200) {
             localStorage.removeItem('user'); // Clear user data
             window.location.href = '/login'; // Redirect to login page
+            localStorage.setItem('activeMenu', 'home')
         } else {
             console.log('Failed to logout')
         }

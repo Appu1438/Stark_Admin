@@ -1,154 +1,265 @@
+/* General Page Layout */
 .user {
-    flex: 4;
-    padding: 20px;
-  }
-  
-  .userTitleContainer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .userAddButton {
-    width: 80px;
-    border: none;
-    padding: 5px;
-    background-color: teal;
-    border-radius: 5px;
-    cursor: pointer;
-    color: white;
-    font-size: 16px;
-  }
-  
-  .userContainer {
-    display: flex;
-    margin-top: 20px;
-  }
-  
-  .userShow {
-    flex: 1;
-    padding: 20px;
-    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
-  }
-  
-  .userUpdate {
-    flex: 2;
-    padding: 20px;
-    -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
-    box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
-    margin-left: 20px;
-  }
-  
-  .userShowTop {
-    display: flex;
-    align-items: center;
-  }
-  
-  .userShowImg {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-  }
-  
-  .userShowTopTitle {
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
-  }
-  
-  .userShowUsername {
-    font-weight: 600;
-  }
-  
-  .userShowUserTitle {
-    font-weight: 300;
-  }
-  
-  .userShowBottom{
-      margin-top: 20px;
-  }
-  
-  .userShowTitle {
-    font-size: 14px;
-    font-weight: 600;
-    color: rgb(175, 170, 170);
-  }
-  
-  .userShowInfo{
-      display: flex;
-      align-items: center;
-      margin: 20px 0px;
-      color: #444;
-  }
-  
-  .userShowIcon{
-      font-size: 16px !important;
-  }
-  
-  .userShowInfoTitle{
-      margin-left: 10px;
-  }
-  
-  .userUpdateTitle{
-      font-size: 24px;
-      font-weight: 600;
-  }
-  
-  .userUpdateForm{
-      display: flex;
-      justify-content: space-between;
-      margin-top: 20px;
-  }
-  
-  .userUpdateItem{
-      display: flex;
-      flex-direction: column;
-      margin-top: 10px;
-  }
-  
-  .userUpdateItem>label{
-      margin-bottom: 5px;
-      font-size: 14px;
-  }
-  
-  .userUpdateInput{
-      border: none;
-      width: 250px;
-      height: 30px;
-      border-bottom: 1px solid gray;
-  }
-  
-  .userUpdateRight{
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-  }
-  
-  .userUpdateUpload{
-      display: flex;
-      align-items: center;
-  }
-  
-  .userUpdateImg{
-      width: 100px;
-      height: 100px;
-      border-radius: 10px;
-      object-fit: cover;
-      margin-right: 20px;
-  }
-  
-  .userUpdateIcon{
-      cursor: pointer;
-  }
-  
-  .userUpdateButton{
-      border-radius: 5px;
-      border: none;
-      padding: 5px;
-      cursor: pointer;
-      background-color: darkblue;
-      color: white;
-      font-weight: 600;
-  }
+  flex: 4;
+  padding: 30px;
+  min-height: 100vh;
+}
+
+/* Page Header */
+.userTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.userTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c3e50; /* Dark, professional color */
+}
+
+.userAddButton {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.userAddButton:hover {
+  background-color: #0056b3;
+}
+
+/* Main Content Container */
+.userContainer {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+/* User Info Card Styling */
+.userShow {
+  flex: 3;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Soft, elegant shadow */
+  width: 90%;
+}
+
+.userShowTop {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.userShowImg {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #f0f2f5;
+}
+
+.userShowTopTitle {
+  display: flex;
+  flex-direction: column;
+}
+
+.userShowUsername {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+}
+
+.userShowUserTitle {
+  font-size: 14px;
+  color: #888;
+  margin-top: 2px;
+}
+
+/* Bottom Section with Details */
+.userShowBottom {
+  margin-top: 25px;
+}
+
+.userShowTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.userShowTitle::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 3px;
+  background-color: #007bff;
+  margin-top: 5px;
+  border-radius: 2px;
+}
+
+.userShowInfo {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  gap: 12px;
+}
+
+.userShowIcon {
+  font-size: 20px !important;
+  color: #888;
+}
+
+.userShowInfoTitle {
+  font-size: 15px;
+  color: #666;
+}
+
+/* User Update/Edit Form Styling */
+.userUpdate {
+  flex: 1;
+  padding: 25px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin-left: 0px;
+}
+
+.userUpdateTitle {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+}
+
+.userUpdateForm {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.userUpdateLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.userUpdateItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.userUpdateItem > label {
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #7f8c8d;
+}
+
+.userUpdateInput {
+  width: 100%;
+  height: 40px;
+  padding: 0 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333;
+  transition: border-color 0.3s ease;
+}
+
+.userUpdateInput:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.userUpdateRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.userUpdateUpload {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.userUpdateImg {
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+.userUpdateIcon {
+  cursor: pointer;
+  font-size: 24px !important;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
+
+.userUpdateIcon:hover {
+  color: #0056b3;
+}
+
+/* Specific icon color overrides */
+.userUpdateUpload .MuiSvgIcon-root:nth-child(2) {
+  color: #dc3545; /* Remove icon color */
+}
+
+/* Progress bar styling */
+.progressBarContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+}
+
+.progressBarContainer progress {
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #e9ecef;
+}
+
+.progressBarContainer progress::-webkit-progress-value {
+  background-color: #28a745;
+  border-radius: 5px;
+}
+
+.progressBarContainer span {
+  font-size: 12px;
+  color: #6c757d;
+}
+
+/* Update Button */
+.userUpdateButton {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background-color: #28a745;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin-top: auto; /* Pushes the button to the bottom of the flex container */
+}
+
+.userUpdateButton:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+}

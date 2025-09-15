@@ -13,20 +13,35 @@ import {
   WorkOutline,
   Report,
   PlayCircleOutline,
-  List
+  List,
+  CarRental,
+  AddModerator,
+  AdminPanelSettings,
+  AdminPanelSettingsRounded,
+  CarCrashSharp,
+  AdminPanelSettingsSharp,
+  MapRounded,
+  MapSharp,
+  MapOutlined
 } from '@mui/icons-material';
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/authContext/AuthContext";
+import { FaUser } from "react-icons/fa";
 
-export default function Sidebar() {
-  const [activeMenu, setActiveMenu] = useState("home");
+// Accept 'className' as a prop
+export default function Sidebar({ className, onMenuClick }) {
+  const [activeMenu, setActiveMenu] = useState(localStorage.getItem("activeMenu"));
 
   const handleMenuClick = (path) => {
+    localStorage.setItem("activeMenu", path);
     setActiveMenu(path);
+    if (onMenuClick) onMenuClick(); // ✅ closes sidebar
   };
 
   return (
-    <div className="sidebar">
+    // Apply the className prop to the sidebar div
+    <div className={className}>
       <div className="sidebarWrapper">
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Dashboard</h3>
@@ -47,13 +62,16 @@ export default function Sidebar() {
               <Timeline className="sidebarIcon" />
               Analytics
             </li>
-            <li
-              className={`sidebarListItem ${activeMenu === "sales" ? "active" : ""}`}
-              onClick={() => handleMenuClick("sales")}
-            >
-              <TrendingUp className="sidebarIcon" />
-              Sales
-            </li>
+            <Link to="/profile" className="link">
+
+              <li
+                className={`sidebarListItem ${activeMenu === "profile" ? "active" : ""}`}
+                onClick={() => handleMenuClick("profile")}
+              >
+                <PermIdentity className="sidebarIcon" />
+                Profile
+              </li>
+            </Link>
           </ul>
         </div>
         <div className="sidebarMenu">
@@ -68,33 +86,47 @@ export default function Sidebar() {
                 Users
               </li>
             </Link>
-            <Link to="/movies" className="link">
+            <Link to="/approved-drivers" className="link">
               <li
-                className={`sidebarListItem ${activeMenu === "movies" ? "active" : ""}`}
-                onClick={() => handleMenuClick("movies")}
+                className={`sidebarListItem ${activeMenu === "approved-drivers" ? "active" : ""}`}
+                onClick={() => handleMenuClick("approved-drivers")}
               >
-                <PlayCircleOutline className="sidebarIcon" />
-                Movies
+                <CarRental className="sidebarIcon" />
+                Approved Drivers
               </li>
             </Link>
-            <Link to="/lists" className="link">
-
+            <Link to="/non-approved-drivers" className="link">
               <li
-                className={`sidebarListItem ${activeMenu === "list" ? "active" : ""}`}
-                onClick={() => handleMenuClick("list")}
+                className={`sidebarListItem ${activeMenu === "non-approved-drivers" ? "active" : ""}`}
+                onClick={() => handleMenuClick("non-approved-drivers")}
               >
-                <List className="sidebarIcon" />
-                Lists
+                <CarRental className="sidebarIcon" />
+                Non-Approved
               </li>
             </Link>
 
-            <li
-              className={`sidebarListItem ${activeMenu === "reports" ? "active" : ""}`}
-              onClick={() => handleMenuClick("reports")}
-            >
-              <BarChart className="sidebarIcon" />
-              Reports
-            </li>
+            <Link to="/admins" className="link">
+
+              <li
+                className={`sidebarListItem ${activeMenu === "admins" ? "active" : ""}`}
+                onClick={() => handleMenuClick("admins")}
+              >
+                <AdminPanelSettingsSharp className="sidebarIcon" />
+                Admins
+              </li>
+            </Link>
+
+            <Link to="/map" className="link">
+
+              <li
+                className={`sidebarListItem ${activeMenu === "maps" ? "active" : ""}`}
+                onClick={() => handleMenuClick("maps")}
+              >
+                <MapOutlined className="sidebarIcon" />
+                Maps
+              </li>
+            </Link>
+
           </ul>
         </div>
         <div className="sidebarMenu">

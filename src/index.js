@@ -2,20 +2,23 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { AuthContextProvider } from './context/authContext/AuthContext';
-import { MovieContextProvider } from './context/movieContext/MovieContext';
-import { ListContextProvider } from './context/listContext/ListContext';
 import { UserContextProvider } from './context/userContext/UserContext';
+import { DriverContextProvider } from './context/driverContext/DriverContext';
+import { AdminContextProvider } from './context/adminContext/AdminContext';
+import { ToastContainer } from 'react-toastify';
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <UserContextProvider>
-      <ListContextProvider>
-        <MovieContextProvider>
+    <ToastContainer position="top-right" autoClose={3000} />
+    <AdminContextProvider>
+      <DriverContextProvider>
+        <UserContextProvider>
           <AuthContextProvider>
             <App />
           </AuthContextProvider>
-        </MovieContextProvider>
-      </ListContextProvider>
-    </UserContextProvider>
+        </UserContextProvider>
+      </DriverContextProvider>
+    </AdminContextProvider>
   </React.StrictMode>
 );

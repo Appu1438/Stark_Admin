@@ -6,38 +6,11 @@ import WidgetSm from "../../components/widgetSm/WidgetSm";
 import WidgetLg from "../../components/widgetLg/WidgetLg";
 import "./home.css";
 import axiosInstance from "../../api/axiosInstance";
+import useStats from "../../hooks/stats/useStats";
 
 export default function Home() {
-  const MONTHS = useMemo(
-    () => [
-      "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
-      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
-    ],
-    []
-  );
-
-  const [userStats, setUserStats] = useState([]);
-
-  useEffect(() => {
-    const getUserStat = async () => {
-      try {
-        const response = await axiosInstance.get(`users/stats`);
-        const stateList = response.data.sort((a, b) => a._id - b._id);
-
-        const formattedStats = stateList.map((item) => ({
-          name: MONTHS[item._id - 1],
-          "New User": item.total,
-        }));
-
-        setUserStats(formattedStats);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    getUserStat();
-  }, [MONTHS]);
-
-  console.log(userStats);
+ 
+  const { userStats, driverStats, loading } = useStats();
 
   return (
     <div className="home">
@@ -48,6 +21,14 @@ export default function Home() {
         grid
         dataKey="New User"
       />
+
+      <Chart
+        data={driverStats}
+        title="Driver Analytics"
+        grid
+        dataKey="New Driver" // ✅ will now match
+      />
+
       <div className="homeWidgets">
         <WidgetSm />
         <WidgetLg />

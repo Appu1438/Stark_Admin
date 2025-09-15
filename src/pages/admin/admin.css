@@ -1,0 +1,584 @@
+.adminDetail {
+  flex: 4;
+  padding: 30px;
+  /* background-color: #f0f2f5; */
+  min-height: 100vh;
+}
+
+.adminTitleContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.adminTitle {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c3e50;
+  padding: 10px;
+}
+
+.adminAddButton {
+  padding: 10px 20px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.adminAddButton:hover {
+  background-color: #0056b3;
+}
+
+.adminContainer {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 30px;
+  flex-wrap: wrap;
+  width: 90%;
+  flex: 2;
+}
+
+.adminShow {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 600px;
+}
+
+.adminShowTop {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  position: relative;
+}
+
+.adminShowImg {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #f0f2f5;
+}
+
+.adminShowTopTitle {
+  display: flex;
+  flex-direction: column;
+}
+
+.adminShowUsername {
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+}
+
+.adminShowUserRole {
+  font-size: 14px;
+  color: #888;
+  margin-top: 2px;
+}
+
+.adminStatusTag {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 5px 10px;
+  border-radius: 20px;
+  text-transform: capitalize;
+}
+
+.adminStatusTag.active {
+  background-color: #e6f7e6;
+  color: #28a745;
+}
+
+.adminStatusTag.inactive {
+  background-color: #fff3e6;
+  color: #ff9800;
+}
+
+.adminShowBottom {
+  margin-top: 25px;
+}
+
+.adminShowTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: #555;
+  margin-bottom: 15px;
+  position: relative;
+}
+
+.adminShowTitle::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 3px;
+  background-color: #007bff;
+  margin-top: 5px;
+  border-radius: 2px;
+}
+
+.adminShowInfo {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  gap: 12px;
+}
+
+.adminShowIcon {
+  font-size: 20px !important;
+  color: #888;
+}
+
+.adminShowInfoTitle {
+  font-size: 15px;
+  color: #666;
+}
+
+.adminActions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 25px;
+  gap: 15px;
+}
+
+.adminListEdit {
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  background-color: #3498db;
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s ease;
+}
+
+.adminListEdit:hover {
+  background-color: #2980b9;
+}
+
+.adminListDelete {
+  color: #e74c3c;
+  cursor: pointer;
+  font-size: 24px !important;
+  transition: color 0.2s ease;
+  margin-top: 5px;
+}
+
+.adminListDelete:hover {
+  color: #c0392b;
+}
+
+.noAdminFound {
+  text-align: center;
+  color: #a0a0a0;
+  font-size: 18px;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.adminActionsCard {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.adminActionsTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.adminActionButton {
+  width: 100%;
+  width: 220px;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.adminActionButton.edit {
+  background-color: #3498db;
+}
+
+.adminActionButton.edit:hover {
+  background-color: #2980b9;
+}
+
+.adminActionButton.activate {
+  background-color: #28a745;
+}
+
+.adminActionButton.activate:hover {
+  background-color: #218838;
+}
+
+.adminActionButton.deactivate {
+  background-color: #ff9800;
+}
+
+.adminActionButton.deactivate:hover {
+  background-color: #e68900;
+}
+
+.adminActionButton.delete {
+  background-color: #dc3545;
+}
+
+.adminActionButton.delete:hover {
+  background-color: #c82333;
+}
+
+.adminActionHelpText {
+  font-size: 14px;
+  color: #888;
+  margin-top: 15px;
+  line-height: 1.5;
+}
+
+/* ... (existing styles) ... */
+
+.adminActionsCard {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center;  Removed this to allow form to align left */
+}
+
+.adminActionsTitle {
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* New title for the update form */
+.adminActionsTitle.updateTitle {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.adminActionsTitle.updateTitle::after {
+  content: "";
+  display: block;
+  width: 50px;
+  height: 3px;
+  background-color: #007bff;
+  margin-top: 5px;
+  border-radius: 2px;
+}
+
+
+/* Form Styling */
+.adminUpdateForm {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.adminUpdateItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.adminUpdateItem>label {
+  font-size: 14px;
+  color: #7f8c8d;
+  margin-bottom: 5px;
+}
+
+.adminUpdateInput {
+   padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.adminUpdateInput:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.adminUpdateButton {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: #28a745;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.adminUpdateButton:hover {
+  background-color: #218838;
+}
+
+/* Action Buttons */
+.adminActionButton {
+  width: 100%;
+  /* Make buttons full width */
+  padding: 12px;
+  margin-bottom: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.editButton {
+  background-color: #f39c12;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.editButton.cancel {
+  background-color: #e74c3c;
+}
+
+.editButton:hover {
+  background-color: #e67e22;
+}
+
+/* ... (rest of the CSS remains the same) ... */
+
+.driverApprovalHistory {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 12px;
+  background: #f9f9f9;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.driverInfoLabel {
+  font-weight: 600;
+  margin-right: 8px;
+  color: #333;
+}
+
+.viewAdminButton {
+  margin-left: 10px;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  color: #fff;
+  background: #007bff;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: background 0.2s ease;
+}
+
+.viewAdminButton:hover {
+  background: #0056b3;
+}
+
+.viewFullHistoryButton {
+  margin-top: 15px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  background: #28a745;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.viewFullHistoryButton:hover {
+  background: #1e7e34;
+}
+
+.closeModalButton {
+  margin-top: 15px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  background: #dc3545;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.closeModalButton:hover {
+  background: #a71d2a;
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modalContent h3 {
+  font-size: 22px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.historyList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.historyItem {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 15px;
+}
+
+.historyItem:last-child {
+  border-bottom: none;
+}
+
+.historyItem p {
+  margin: 5px 0;
+  color: #555;
+  font-size: 14px;
+}
+
+.historyItem strong {
+  color: #2c3e50;
+}
+
+.modalContent button {
+  padding: 10px 20px;
+  background-color: #7f8c8d;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background-color 0.3s;
+}
+
+.modalContent button:hover {
+  background-color: #5e6c75;
+}
+
+
+/* Stack layout for small screens */
+@media (max-width: 992px) {
+  .adminContainer {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .adminShow,
+  .adminActionsCard {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .adminDetail {
+    padding: 15px;
+  }
+
+  .adminTitle {
+    font-size: 22px;
+  }
+
+  .adminShowUsername {
+    font-size: 18px;
+  }
+
+  .adminShowImg {
+    width: 65px;
+    height: 65px;
+  }
+
+  .adminActionButton {
+    width: 100%;
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .adminUpdateInput {
+    font-size: 13px;
+    padding: 8px;
+  }
+}
+
+/* Extra small screen tweaks (phones < 480px) */
+@media (max-width: 480px) {
+  .adminShowTop {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .adminShowTopTitle {
+    align-items: center;
+  }
+
+  .adminStatusTag {
+    position: static;
+    margin-top: 8px;
+  }
+}

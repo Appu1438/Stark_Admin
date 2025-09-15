@@ -12,8 +12,8 @@ export default function WidgetSm() {
   useEffect(() => {
     const getNewUsers = async () => {
       try {
-        const res = await axiosInstance.get(`users/?new=true`)
-        setNewUsers(res.data)
+        const res = await axiosInstance.get(`/users?new=true`)
+        setNewUsers(res.data.users)
       } catch (error) {
         console.log(error)
       }
@@ -33,7 +33,7 @@ export default function WidgetSm() {
               className="widgetSmImg"
             />
             <div className="widgetSmUser">
-            <span className="widgetSmUsername">{user.username}</span>
+            <span className="widgetSmUsername">{user.name}</span>
             <span className="widgetSmUserTitle">{user.email}</span>
             </div>
             <button className="widgetSmButton">

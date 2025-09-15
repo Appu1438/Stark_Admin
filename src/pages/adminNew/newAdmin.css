@@ -1,0 +1,125 @@
+/* General Page and Container */
+.newAdmin {
+  flex: 4;
+  padding: 30px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.formContainer {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+/* Form Layout and Items */
+.adminForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.formItem {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.formItem label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #7f8c8d;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.formItem input,
+.selectInput {
+  height: 45px;
+  padding: 0 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  color: #333;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.formItem input:focus,
+.selectInput:focus {
+  outline: none;
+  border-color: #3498db;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+}
+
+.formItem input::placeholder {
+  color: #a0a0a0;
+  font-style: italic;
+}
+
+/* Password field with toggle button */
+.passwordWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.passwordWrapper input {
+  padding-right: 50px; /* Make space for the icon */
+  width: 100%;
+}
+
+.togglePassword {
+  position: absolute;
+  right: 15px;
+  color: #a0a0a0;
+  cursor: pointer;
+  font-size: 22px !important;
+  transition: color 0.2s ease;
+}
+
+.togglePassword:hover {
+  color: #7f8c8d;
+}
+
+/* Select element styling */
+.selectInput {
+  appearance: none; /* Removes default dropdown arrow */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="%23a0a0a0"><path d="M7 10l5 5 5-5z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 15px center;
+  background-size: 16px;
+}
+
+/* Submit Button */
+.submitButton {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  background-color: #2ecc71; /* A friendly green */
+  color: white;
+  font-size: 18px;
+  font-weight: 600;
+  border-radius: 8px;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.submitButton:hover {
+  background-color: #27ae60;
+  transform: translateY(-2px);
+}

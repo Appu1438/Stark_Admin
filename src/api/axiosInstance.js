@@ -35,36 +35,39 @@ axiosInstance.interceptors.request.use(
 // Axios response interceptor
 axiosInstance.interceptors.response.use(
     (response) => {
-        return response; // Return response if successful
+        return response;
     },
     async (error) => {
         const originalRequest = error.config;
-        // Check for 401 or 403 error and if this request hasn't been retried
-        if (error.response && (error.response.status === 401 || error.response.status === 403) && !originalRequest._retry) {
+
+        // Handle only 401 (unauthorized, expired/invalid token)
+        if (error.response && error.response.status === 401 && !originalRequest._retry) {
             originalRequest._retry = true;
-           
-                try {
-                    console.log('Attempting to refresh token');
 
-                    const accessToken = await refresh()
+            // try {
+            //     console.log("Attempting to refresh token");
 
-                    console.log('New access token:', accessToken);
+            //     const accessToken = await refresh();
+            //     console.log("New access token:", accessToken);
 
+            //     // Retry original request with new token
+            //     originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
+            //     return axiosInstance(originalRequest);
+            // } catch (refreshError) {
+                logout(storedUser);
+            //     return Promise.reject(refreshError);
+            // }
+        }
 
-                    // Retry the original request with the new access token
-                    originalRequest.headers['Authorization'] = `Bearer ${accessToken}`;
-                    return axiosInstance(originalRequest);
-
-                } catch (refreshError) {
-                    logout()
-                    return Promise.reject(refreshError);
-                }
-            }
+        // // If it's 403, just reject → means role issue or account inactive
+        // if (error.response && error.response.status === 403) {
+        //     console.warn("Access denied due to role/permission issue");
+        //     logout(); // or redirect to "No Access" page if you prefer
+        // }
 
         return Promise.reject(error);
     }
 );
-
 
 
 export default axiosInstance;

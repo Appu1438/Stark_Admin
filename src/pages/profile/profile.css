@@ -1,0 +1,185 @@
+/* General Page Layout */
+.profile {
+  flex: 4;
+  padding: clamp(20px, 5vw, 40px);
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  background: #f0f2f5; /* A softer, more elegant background color */
+  min-height: 100vh;
+}
+
+/* Page Header & Logout Button */
+.profileHeaderContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.profileTitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(24px, 4vw, 36px);
+  font-weight: 700;
+  color: #212529;
+}
+
+.logoutButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  background-color: #f44336; /* A clear, bold color for the logout button */
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 10px rgba(244, 67, 54, 0.2);
+}
+
+.logoutButton:hover {
+  background-color: #d32f2f;
+  transform: translateY(-2px);
+}
+
+.noUser {
+  text-align: center;
+  font-family: 'Inter', sans-serif;
+  font-size: 18px;
+  color: #888;
+  margin-top: 50px;
+}
+
+/* Profile Card */
+.profileCard {
+  background: linear-gradient(135deg, #ffffff, #f9f9f9); /* Subtle gradient for depth */
+  border-radius: 18px;
+  padding: 30px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); /* Softer, more elegant shadow */
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.profileCard:hover {
+  transform: translateY(-5px); /* Lift the card on hover */
+}
+
+.profileMainHeader {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  border-bottom: 1px solid #e9ecef;
+  padding-bottom: 25px;
+}
+
+.profileImg {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.profileInfo h3 {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 600;
+  color: #343a40;
+}
+
+.roleBadge {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.role-moderator {
+  background-color: #ff9800;
+}
+.role-admin {
+  background-color: #4CAF50; /* A more pleasant green */
+}
+.role-superadmin {
+  background-color: #E60073; /* A bold pink for high-level admins */
+}
+
+.statusBadge {
+  margin-left: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 10px;
+  color: white;
+}
+
+.statusBadge.active {
+  background-color: #28a745;
+}
+
+.statusBadge.inactive {
+  background-color: #dc3545;
+}
+
+.profileDetails {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.detailItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 15px;
+  color: #495057;
+  background: #f8f9fa;
+  padding: 15px 20px;
+  border-radius: 12px;
+  transition: background 0.2s ease-in-out, transform 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.detailItem:hover {
+  background: #e9ecef;
+  transform: translateY(-2px);
+}
+
+.detailIcon {
+  color: #007bff; /* Use a brand color for icons */
+  font-size: 22px !important;
+}
+
+/* 📱 Responsive */
+@media screen and (max-width: 768px) {
+  .profileImg {
+    width: 80px;
+    height: 80px;
+  }
+  .profileInfo h3 {
+    font-size: 20px;
+  }
+  .profileTitle {
+    font-size: 22px;
+  }
+  .profileMainHeader {
+    flex-direction: column;
+    text-align: center;
+  }
+  .profileDetails {
+    grid-template-columns: 1fr;
+  }
+}

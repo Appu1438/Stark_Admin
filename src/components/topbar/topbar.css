@@ -5,6 +5,7 @@
   position: sticky;
   top: 0;
   z-index: 999;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
 
 .topbarWrapper {
@@ -16,10 +17,16 @@
 }
 
 .logo {
-  font-weight: bold;
+  font-family: "TT-Octosquares-Medium";
+  font-weight: lighter;
   font-size: 30px;
-  color: darkblue;
+  color: #142bdd;
   cursor: pointer;
+}
+
+.topLeft {
+  display: flex;
+  align-items: center;
 }
 
 .topRight {
@@ -61,20 +68,58 @@
   border-radius: 5px;
   border: 1px solid black;
   background-color: black;
-
-  span {
-    padding: 10px;
-    cursor: pointer;
-    color: #fefefe;
-  }
-
 }
 
-.topbarIconContainer:hover {
-  .options {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
+.options span {
+  padding: 10px;
+  cursor: pointer;
+  color: #fefefe;
+}
+.options .lin span {
+  padding: 10px;
+  cursor: pointer;
+  color: #fefefe;
+}
+
+.topbarIconContainer:hover .options {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 20px;
+  right: 0;
+  z-index: 100;
+}
+
+/* HAMBURGER (hidden on desktop) */
+.topRight .hamburger {
+  display: none;
+  margin-right: 10px;
+  cursor: pointer;
+  color: #142bdd;
+}
+
+/* RESPONSIVE STYLES */
+@media screen and (max-width: 1024px) {
+  .logo {
+    font-size: 24px;
   }
 
+  .topRight {
+    gap: 8px;
+  }
+
+  /* Hide notifications & language on small screens */
+  .topbarIconContainer:nth-child(1),
+  .topbarIconContainer:nth-child(2) {
+    display: none;
+  }
+
+  .topAvatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .topRight .hamburger {
+    display: block;
+  }
 }
