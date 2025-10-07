@@ -19,6 +19,9 @@ import NonApprovedDriverList from "./pages/driverList/Non-Approved-DriverList";
 import "react-toastify/dist/ReactToastify.css";
 import Map from "./pages/map/Map";
 import Profile from "./pages/profile/Profile";
+import TransactionList from "./pages/transactionList/transactionList";
+import RideList from "./pages/rideList/RideList";
+import FareList from "./pages/fareList/FareList";
 
 
 function Layout() {
@@ -68,6 +71,9 @@ function App() {
             <Route path="/admin/:adminId" element={<Admin />} />
             <Route path="/newAdmin" element={<NewAdmin />} />
             <Route path="/map" element={<Map />} />
+            <Route path="/transactions" element={<TransactionList />} />
+            <Route path="/rides" element={<RideList />} />
+            <Route path="/fares" element={<FareList />} />
           </Route>
         ) : (
           <Route path="*" element={<Navigate to="/login" />} />

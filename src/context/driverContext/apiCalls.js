@@ -4,7 +4,7 @@ import { approveDriverFailure, approveDriverStart, approveDriverSuccess, deAppro
 export const getDrivers = async (dispatch, toast) => {
     dispatch(getDriversStart());
     try {
-        const res = await axiosInstance.get(`/drivers?approved=`);
+        const res = await axiosInstance.get(`/admin/drivers`);
         dispatch(getDriversSuccess(res.data.drivers));
         toast.success("Driver Fetched Successfully!");
         console.log(res.data.drivers)
@@ -18,7 +18,7 @@ export const getDrivers = async (dispatch, toast) => {
 export const approveDriver = async (driver, dispatch, navigate, toast, remark) => {
     dispatch(approveDriverStart());
     try {
-        const res = await axiosInstance.patch(`/drivers/approve/${driver._id}`, { remark }); // ✅ use PUT
+        const res = await axiosInstance.patch(`/admin/drivers/approve/${driver._id}`, { remark }); // ✅ use PUT
         dispatch(approveDriverSuccess(res.data.data));
         toast.success("Driver Approved Successfully!");
         // navigate can be optional, e.g., redirect to list
@@ -35,7 +35,7 @@ export const approveDriver = async (driver, dispatch, navigate, toast, remark) =
 export const deApproveDriver = async (driver, dispatch, navigate, toast, remark) => {
     dispatch(deApproveDriverStart());
     try {
-        const res = await axiosInstance.patch(`/drivers/deapprove/${driver._id}`, { remark }); // ✅ use PUT
+        const res = await axiosInstance.patch(`/admin/drivers/deapprove/${driver._id}`, { remark }); // ✅ use PUT
         dispatch(deApproveDriverSuccess(res.data.data));
         toast.success("Driver De-Approved Successfully!");
         // navigate can be optional, e.g., redirect to list
@@ -56,7 +56,7 @@ export const updateDriver = async (driverId, driver, dispatch, remark, toast) =>
     // console.log(driverId)
     dispatch(updateDriverStart());
     try {
-        const res = await axiosInstance.put(`drivers/${driverId}`, { driver, remark });
+        const res = await axiosInstance.put(`/admin/drivers/${driverId}`, { driver, remark });
         dispatch(updateDriverSuccess(res.data.data));
         toast.success("Driver Updated Successfully!");
     } catch (error) {

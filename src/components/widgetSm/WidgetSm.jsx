@@ -12,7 +12,7 @@ export default function WidgetSm() {
   useEffect(() => {
     const getNewUsers = async () => {
       try {
-        const res = await axiosInstance.get(`/users?new=true`)
+        const res = await axiosInstance.get(`/admin/users?new=true`)
         setNewUsers(res.data.users)
       } catch (error) {
         console.log(error)

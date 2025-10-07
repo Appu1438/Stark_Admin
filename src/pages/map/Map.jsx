@@ -7,6 +7,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import DriverInfoWindow from "../../components/driverInfoWindow/driverInfoWindow";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"; // Import icons
+import axiosInstance from "../../api/axiosInstance";
 
 export default function Map() {
     const { driverLists, setDriverLists, updateDriverLocation } = useDriverStore();
@@ -38,6 +39,8 @@ export default function Map() {
     useEffect(() => {
         socketService.connectAsAdmin();
 
+        socketService.clearListeners()
+
         socketService.onAllDrivers(async (driversFromSocket) => {
             if (!driversFromSocket || driversFromSocket.length === 0) {
                 setDriverLists([]);
@@ -48,8 +51,8 @@ export default function Map() {
             const driverIds = driversFromSocket.map((d) => d.id).join(",");
 
             try {
-                const res = await axios.get(
-                    `${process.env.REACT_APP_API_URL_DRIVER}/get-drivers-data`,
+                const res = await axiosInstance.get(
+                    `/driver/get-drivers-data`,
                     { params: { ids: driverIds } }
                 );
 
@@ -81,7 +84,10 @@ export default function Map() {
             updateDriverLocation(updates);
         });
 
-        return () => socketService.clearListeners();
+        return () => {
+            socketService.clearListeners();
+            socketService.disconnect()
+        }
     }, [setDriverLists, updateDriverLocation]);
 
     // Update markers when drivers change

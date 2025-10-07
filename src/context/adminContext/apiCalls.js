@@ -4,7 +4,7 @@ import { activateAdminFailure, activateAdminStart, activateAdminSuccess, createA
 export const getAdmins = async (dispatch, toast) => {
     dispatch(getAdminsStart());
     try {
-        const res = await axiosInstance.get(`/admins`);
+        const res = await axiosInstance.get(`/admin/admins`);
         dispatch(getAdminsSuccess(res.data.data));
         console.log(res.data.admins)
         toast.success("Admins fetched successfully!");
@@ -18,7 +18,7 @@ export const getAdmins = async (dispatch, toast) => {
 export const activateAdmin = async (admin, dispatch, toast) => {
     dispatch(activateAdminStart());
     try {
-        const res = await axiosInstance.patch(`/admins/activate/${admin._id}`);
+        const res = await axiosInstance.patch(`/admin/admins/activate/${admin._id}`);
         dispatch(activateAdminSuccess(res.data.data));
         // console.log(res.data.data)
         toast.success("Admin activated successfully!");
@@ -32,7 +32,7 @@ export const activateAdmin = async (admin, dispatch, toast) => {
 export const deActivateAdmin = async (admin, dispatch, toast) => {
     dispatch(deActivateAdminStart());
     try {
-        const res = await axiosInstance.patch(`/admins/deactivate/${admin._id}`);
+        const res = await axiosInstance.patch(`/admin/admins/deactivate/${admin._id}`);
         dispatch(deActivateAdminSuccess(res.data.data));
         toast.success("Admin De-Activated successfully!");
     } catch (error) {
@@ -45,7 +45,7 @@ export const deActivateAdmin = async (admin, dispatch, toast) => {
 export const createAdmin = async (admin, dispatch, navigate, toast) => {
     dispatch(createAdminStart());
     try {
-        const res = await axiosInstance.post(`/add`, admin);
+        const res = await axiosInstance.post(`/admin/add`, admin);
         const newAdmin = res.data.data;
 
         dispatch(createAdminSuccess(newAdmin));
@@ -62,7 +62,7 @@ export const createAdmin = async (admin, dispatch, navigate, toast) => {
 export const updateAdmin = async (adminId, admin, dispatch, remark, toast) => {
     dispatch(updateAdminStart());
     try {
-        const res = await axiosInstance.put(`/admins/${adminId}`, { admin, remark });
+        const res = await axiosInstance.put(`/admin/admins/${adminId}`, { admin, remark });
         const newAdmin = res.data.data;
 
         dispatch(updateAdminSuccess(newAdmin));

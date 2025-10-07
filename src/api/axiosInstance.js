@@ -1,11 +1,14 @@
 import axios from 'axios';
 import { logout, refresh } from '../context/authContext/apiCalls';
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const storedUser = JSON.parse(localStorage.getItem('user'));
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-    baseURL: process.env.REACT_APP_API_URL, // Set the base URL
+    baseURL: `${process.env.REACT_APP_API_URL}`, // Set the base URL
+    withCredentials: true,
     headers: {
         'Content-Type': 'application/json', // Set common headers
     },
@@ -30,40 +33,65 @@ axiosInstance.interceptors.request.use(
     }
 );
 
+let isRefreshing = false;
+let failedQueue = [];
 
+const processQueue = (error, token = null) => {
+    failedQueue.forEach(prom => {
+        if (error) {
+            prom.reject(error);
+        } else {
+            prom.resolve(token);
+        }
+    });
+
+    failedQueue = [];
+};
 
 // Axios response interceptor
+
 axiosInstance.interceptors.response.use(
-    (response) => {
-        return response;
-    },
-    async (error) => {
+    response => response,
+    async error => {
         const originalRequest = error.config;
 
-        // Handle only 401 (unauthorized, expired/invalid token)
-        if (error.response && error.response.status === 401 && !originalRequest._retry) {
-            originalRequest._retry = true;
+        if (error.response?.status === 460) {
+            console.log(error.response)
+            toast.error(error?.response?.data?.message || "Something went wrong");
 
-            // try {
-            //     console.log("Attempting to refresh token");
+            logout(storedUser)
 
-            //     const accessToken = await refresh();
-            //     console.log("New access token:", accessToken);
-
-            //     // Retry original request with new token
-            //     originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
-            //     return axiosInstance(originalRequest);
-            // } catch (refreshError) {
-                logout(storedUser);
-            //     return Promise.reject(refreshError);
-            // }
+            return Promise.reject(error);
         }
 
-        // // If it's 403, just reject → means role issue or account inactive
-        // if (error.response && error.response.status === 403) {
-        //     console.warn("Access denied due to role/permission issue");
-        //     logout(); // or redirect to "No Access" page if you prefer
-        // }
+
+        if (error.response && error.response.status === 401 && !originalRequest._retry) {
+            if (isRefreshing) {
+                // Queue requests while refresh is in progress
+                return new Promise(function (resolve, reject) {
+                    failedQueue.push({ resolve, reject });
+                }).then(token => {
+                    originalRequest.headers["Authorization"] = `Bearer ${token}`;
+                    return axiosInstance(originalRequest);
+                }).catch(err => Promise.reject(err));
+            }
+
+            originalRequest._retry = true;
+            isRefreshing = true;
+
+            try {
+                const accessToken = await refresh();
+                originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
+                processQueue(null, accessToken);
+                return axiosInstance(originalRequest);
+            } catch (err) {
+                processQueue(err, null);
+                logout(storedUser);
+                return Promise.reject(err);
+            } finally {
+                isRefreshing = false;
+            }
+        }
 
         return Promise.reject(error);
     }

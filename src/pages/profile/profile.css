@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   gap: 30px;
-  background: #f0f2f5; /* A softer, more elegant background color */
+  background: #ffff; /* A softer, more elegant background color */
   min-height: 100vh;
 }
 

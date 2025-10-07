@@ -34,7 +34,7 @@ export default function User() {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    updateUser(userData, dispatch, navigate)
+    // updateUser(userData, dispatch, navigate)
   }
 
   // Handle cases where the user data might not be found

@@ -1,6 +1,7 @@
 // store/driverStore.ts
 import { create } from "zustand";
 import axios from "axios";
+import axiosInstance from "../api/axiosInstance";
 
 export const useDriverStore = create((set, get) => ({
   driverLists: [],
@@ -9,7 +10,7 @@ export const useDriverStore = create((set, get) => ({
 
   updateDriverLocation: async (updates) => {
     let driverLists = [...get().driverLists];
-    const newDriverIds: string[] = [];
+    const newDriverIds = [];
 
     updates.forEach((update) => {
       const index = driverLists.findIndex((d) => d.id === update.id);
@@ -34,8 +35,7 @@ export const useDriverStore = create((set, get) => ({
     // If new drivers found → fetch from backend
     if (newDriverIds.length > 0) {
       try {
-        const res = await axios.get(
-          "http://localhost:8000/api/v1/driver/get-drivers-data",
+        const res = await axiosInstance.get("/driver/get-drivers-data",
           { params: { ids: newDriverIds.join(",") } }
         );
 

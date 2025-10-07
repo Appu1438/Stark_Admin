@@ -22,12 +22,21 @@ import {
   AdminPanelSettingsSharp,
   MapRounded,
   MapSharp,
-  MapOutlined
+  MapOutlined,
+  PaymentOutlined,
+  Payments,
+  TaxiAlert,
+  LocalTaxi,
+  CurrencyExchange,
+  CarRentalSharp,
+  LocalTaxiOutlined,
+  AttachMoneyTwoTone,
+  CurrencyRupee
 } from '@mui/icons-material';
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext/AuthContext";
-import { FaUser } from "react-icons/fa";
+import { FaRupeeSign, FaTaxi, FaUser } from "react-icons/fa";
 
 // Accept 'className' as a prop
 export default function Sidebar({ className, onMenuClick }) {
@@ -130,31 +139,31 @@ export default function Sidebar({ className, onMenuClick }) {
           </ul>
         </div>
         <div className="sidebarMenu">
-          <h3 className="sidebarTitle">Notifications</h3>
+          <h3 className="sidebarTitle">Rides & Payments</h3>
           <ul className="sidebarList">
-            <li
-              className={`sidebarListItem ${activeMenu === "mail" ? "active" : ""}`}
-              onClick={() => handleMenuClick("mail")}
-            >
-              <MailOutline className="sidebarIcon" />
-              Mail
-            </li>
-            <li
-              className={`sidebarListItem ${activeMenu === "feedback" ? "active" : ""}`}
-              onClick={() => handleMenuClick("feedback")}
-            >
-              <DynamicFeed className="sidebarIcon" />
-              Feedback
-            </li>
-            <li
-              className={`sidebarListItem ${activeMenu === "messages" ? "active" : ""}`}
-              onClick={() => handleMenuClick("messages")}
-            >
-              <ChatBubbleOutline className="sidebarIcon" />
-              Messages
-            </li>
+            <Link to="/transactions" className="link">
+              <li className={`sidebarListItem ${activeMenu === "transactions" ? "active" : ""}`} onClick={() => handleMenuClick("transactions")}>
+                <Payments className="sidebarIcon" />
+                Transactions
+              </li>
+            </Link>
+
+            <Link to="/rides" className="link">
+              <li className={`sidebarListItem ${activeMenu === "rides" ? "active" : ""}`} onClick={() => handleMenuClick("rides")}>
+                <LocalTaxi className="sidebarIcon" />
+                Rides
+              </li>
+            </Link>
+
+            <Link to="/fares" className="link">
+              <li className={`sidebarListItem ${activeMenu === "fares" ? "active" : ""}`} onClick={() => handleMenuClick("fares")}>
+                <CurrencyRupee className="sidebarIcon" />
+                Fare-Details
+              </li>
+            </Link>
           </ul>
         </div>
+
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Staff</h3>
           <ul className="sidebarList">

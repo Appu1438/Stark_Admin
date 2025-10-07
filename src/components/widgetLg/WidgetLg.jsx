@@ -12,7 +12,7 @@ export default function WidgetLg() {
   useEffect(() => {
     const getNewDrivers = async () => {
       try {
-        const res = await axiosInstance.get(`/drivers?new=true`);
+        const res = await axiosInstance.get(`/admin/drivers?new=true`);
         setNewDrivers(res.data.drivers);
       } catch (error) {
         console.log(error);
