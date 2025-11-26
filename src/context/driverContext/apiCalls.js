@@ -37,7 +37,7 @@ export const deApproveDriver = async (driver, dispatch, navigate, toast, remark)
     try {
         const res = await axiosInstance.patch(`/admin/drivers/deapprove/${driver._id}`, { remark }); // ✅ use PUT
         dispatch(deApproveDriverSuccess(res.data.data));
-        toast.success("Driver De-Approved Successfully!");
+        toast.success(res.data.message);
         // navigate can be optional, e.g., redirect to list
         // navigate("/approved-drivers");  
         // localStorage.setItem('activeMenu', "approved-drivers")

@@ -101,7 +101,7 @@ export default function Driver() {
 
         const getDriverApprovalHistory = async () => {
             try {
-                const res = await axiosInstance.get(`/drivers/approval-history/${driver._id}`);
+                const res = await axiosInstance.get(`/admin/drivers/approval-history/${driver._id}`);
                 if (res.data.success) {
                     const sortedHistory = res.data.data.history.sort(
                         (a, b) => new Date(b.actionOn) - new Date(a.actionOn)
@@ -124,7 +124,7 @@ export default function Driver() {
 
         const getDriverWallerDetails = async () => {
             try {
-                const res = await axiosInstance.get(`/drivers/wallet/${driver._id}`);
+                const res = await axiosInstance.get(`/admin/drivers/wallet/${driver._id}`);
                 if (res.data.success) {
                     console.log(res.data.wallet)
                     setWallet(res.data.wallet);
@@ -258,14 +258,32 @@ export default function Driver() {
                                 alt=""
                                 className="driverInfoImg"
                             />
+
                             <div className="driverInfoTopTitle">
                                 <span className="driverInfoName">{driver.name}</span>
-                                <span className="driverInfoVehicle">{capitalizeFirstLetter(driver.vehicle_type)}</span>
+                                <span className="driverInfoVehicle">
+                                    {capitalizeFirstLetter(driver.vehicle_type)}
+                                </span>
                             </div>
-                            <span className={`driverStatusTag ${driver.is_approved ? "approved" : "pending"}`}>
-                                {driver.is_approved ? "Approved" : "Pending"}
-                            </span>
+
+                            {/* STATUS SECTION */}
+                            <div className="driverStatusWrapper">
+                                <span
+                                    className={`driverStatusTag ${driver.pending_suspension ? "pending" : "approved"
+                                        }`}
+                                >
+                                    {driver.pending_suspension ? "Marked" : "Not Marked"}
+                                </span>
+
+                                <span
+                                    className={`driverStatusTag ${driver.is_approved ? "approved" : "pending"
+                                        }`}
+                                >
+                                    {driver.is_approved ? "Approved" : "Pending"}
+                                </span>
+                            </div>
                         </div>
+
 
                         <div className="driverInfoBottom">
                             <h3 className="driverInfoTitle">Personal Information</h3>
@@ -679,6 +697,7 @@ export default function Driver() {
                                     id="dob"
                                     name="dob"
                                     value={updatedDriverData.dob ? updatedDriverData.dob.split("T")[0] : ""}
+
                                     onChange={handleUpdateChange}
                                     className="driverUpdateInput"
                                     disabled={!isEditing}

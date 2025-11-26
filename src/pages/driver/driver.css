@@ -84,10 +84,18 @@
     color: #555;
 }
 
+
+/* STATUS SECTION (right side) */
+.driverStatusWrapper {
+    display: flex;
+    /* flex: 8; */
+    /* flex-direction: column; */
+    gap: 6px;
+    align-items: center;
+}
+
+/* TAGS */
 .driverStatusTag {
-    position: absolute;
-    top: 0;
-    right: 0;
     padding: 4px 10px;
     border-radius: 6px;
     font-size: 12px;
