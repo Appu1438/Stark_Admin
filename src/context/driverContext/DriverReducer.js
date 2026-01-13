@@ -15,7 +15,7 @@ const DriverReducer = (state, action) => {
             }
         case "GET_DRIVERS_FAILURE":
             return {
-                drivers: null,
+                drivers: [],
                 isFetching: false,
                 error: true
             }

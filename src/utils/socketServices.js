@@ -3,59 +3,97 @@ class SocketService {
     this.socket = null;
     this.connected = false;
 
-    this.onAllDriversCallback = null;
-    this.onDriverUpdatesCallback = null;
+    this.allDriversListeners = new Set();
+    this.driverUpdateListeners = new Set();
+
+    this.reconnectTimer = null;
   }
 
   connectAsAdmin() {
     if (this.socket) return;
 
-    this.socket = new WebSocket(process.env.REACT_APP_SOCKET_URL);
+    console.log("[ADMIN SOCKET] Connecting…");
 
-    this.socket.onopen = () => {
+    const ws = new WebSocket(process.env.REACT_APP_SOCKET_URL);
+    this.socket = ws;
+
+    ws.onopen = () => {
+      // 🔐 SAFETY CHECK
+      if (this.socket !== ws) {
+        console.warn("[ADMIN SOCKET] Stale socket opened, ignoring");
+        return;
+      }
+
       console.log("✅ Admin socket connected");
       this.connected = true;
 
-      // identify as admin
-      this.socket?.send(JSON.stringify({ role: "admin" }));
+      // ✅ SAFE SEND
+      ws.send(JSON.stringify({ role: "admin" }));
     };
 
-    this.socket.onclose = () => {
-      this.connected = false;
-      setTimeout(() => this.connectAsAdmin(), 3000);
-    };
+    ws.onmessage = (e) => {
+      if (this.socket !== ws) return;
 
-    this.socket.onmessage = (e) => {
       try {
         const message = JSON.parse(e.data);
-        if (message.type === "allDrivers" && this.onAllDriversCallback) {
-          this.onAllDriversCallback(message.drivers);
+
+        if (message.type === "allDrivers") {
+          this.allDriversListeners.forEach(cb => cb(message.drivers));
         }
-        if (message.type === "driverLocationUpdate" && this.onDriverUpdatesCallback) {
-          this.onDriverUpdatesCallback(message.drivers);
+
+        if (message.type === "driverLocationUpdate") {
+          this.driverUpdateListeners.forEach(cb => cb(message.drivers));
         }
+
       } catch (err) {
-        console.error("Admin socket parse failed", err);
+        console.error("❌ Admin socket parse failed", err);
       }
+    };
+
+    ws.onerror = (e) => {
+      if (this.socket !== ws) return;
+      console.error("❌ Admin socket error", e);
+    };
+
+    ws.onclose = () => {
+      if (this.socket !== ws) return;
+
+      console.warn("⚠️ Admin socket closed");
+      this.connected = false;
+      this.socket = null;
+
+      this.reconnectTimer = setTimeout(() => {
+        this.connectAsAdmin();
+      }, 3000);
     };
   }
 
-  onAllDrivers(callback) {
-    this.onAllDriversCallback = callback;
+
+  // ✅ SUBSCRIBE / UNSUBSCRIBE
+  onAllDrivers(cb) {
+    this.allDriversListeners.add(cb);
+    return () => this.allDriversListeners.delete(cb);
   }
 
-  onDriverLocationUpdates(callback) {
-    this.onDriverUpdatesCallback = callback;
-  }
-
-  clearListeners() {
-    this.onAllDriversCallback = null;
-    this.onDriverUpdatesCallback = null;
+  onDriverLocationUpdates(cb) {
+    this.driverUpdateListeners.add(cb);
+    return () => this.driverUpdateListeners.delete(cb);
   }
 
   disconnect() {
+    console.log("[ADMIN SOCKET] Disconnecting");
+
+    this.allDriversListeners.clear();
+    this.driverUpdateListeners.clear();
+
+    if (this.reconnectTimer) {
+      clearTimeout(this.reconnectTimer);
+      this.reconnectTimer = null;
+    }
+
     this.socket?.close();
     this.socket = null;
+    this.connected = false;
   }
 }
 

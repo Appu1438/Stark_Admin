@@ -1,4 +1,5 @@
 export const districts = [
+  "Default",
   // Andaman and Nicobar Islands
   "Andaman",
   "Nicobar",

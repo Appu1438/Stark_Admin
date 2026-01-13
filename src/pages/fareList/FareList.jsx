@@ -22,9 +22,9 @@ export default function FareList() {
             { Header: "Vehicle Type", accessor: "vehicle_type" },
             { Header: "District", accessor: "district" },
             { Header: "Base Fare", accessor: "baseFare" },
+            { Header: "Upto Km", accessor: "baseFareUptoKm" },
             { Header: "Per Km Amount", accessor: "perKmRate" },
             { Header: "Per Minute", accessor: "perMinRate" },
-            { Header: "Min Fare", accessor: "minFare" },
             { Header: "Surge Multiplier", accessor: "surgeMultiplier" },
             {
                 Header: "Last Updated",
@@ -58,9 +58,9 @@ export default function FareList() {
     const handleSubmit = (formData) => {
         console.log(formData)
         if (selectedFare) {
-           updateFare(dispatch,toast,formData,setShowModal)
+            updateFare(dispatch, toast, formData, setShowModal)
         } else {
-            createFare(dispatch, toast, formData,setShowModal)
+            createFare(dispatch, toast, formData, setShowModal)
         }
     };
 

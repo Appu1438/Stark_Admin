@@ -85,6 +85,7 @@ export default function NonApprovedDriverList() {
           "Both Expired",
         ]}
         filterKey={["status"]}
+        buttonName={'Edit'}
         onButtonClick={(driver) =>
           navigate(`/driver/${driver._id}`, {
             state: { driverId: driver._id },

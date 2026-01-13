@@ -88,7 +88,8 @@ export default function Admin() {
 
         const getAdminApprovalHistory = async () => {
             try {
-                const res = await axiosInstance.get(`/admins/history/${admin._id}`);
+                const res = await axiosInstance.get(`/admin/admins/history/${admin._id}`);
+                console.log(res)
                 if (res.data.success) {
                     const sortedHistory = res.data.data.history.sort(
                         (a, b) => new Date(b.actionOn) - new Date(a.actionOn)

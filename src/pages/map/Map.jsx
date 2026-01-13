@@ -39,55 +39,52 @@ export default function Map() {
     useEffect(() => {
         socketService.connectAsAdmin();
 
-        socketService.clearListeners()
+        const unsubscribeAllDrivers = socketService.onAllDrivers(
+            async (driversFromSocket) => {
+                if (!driversFromSocket?.length) {
+                    setDriverLists([]);
+                    setDriverLoader(false);
+                    return;
+                }
 
-        socketService.onAllDrivers(async (driversFromSocket) => {
-            if (!driversFromSocket || driversFromSocket.length === 0) {
-                setDriverLists([]);
-                setDriverLoader(false);
-                return;
-            }
+                const driverIds = driversFromSocket.map(d => d.id).join(",");
 
-            const driverIds = driversFromSocket.map((d) => d.id).join(",");
-
-            try {
-                const res = await axiosInstance.get(
-                    `/driver/get-drivers-data`,
-                    { params: { ids: driverIds } }
-                );
-
-                const dbDrivers = res.data;
-                const merged = dbDrivers.map((dbDriver) => {
-                    const socketDriver = driversFromSocket.find(
-                        (d) => d.id === dbDriver.id
+                try {
+                    const res = await axiosInstance.get(
+                        "/driver/get-drivers-data",
+                        { params: { ids: driverIds } }
                     );
-                    return {
-                        ...dbDriver,
-                        latitude: socketDriver?.current?.latitude,
-                        longitude: socketDriver?.current?.longitude,
-                        heading: socketDriver?.heading || 0,
-                    };
-                });
 
-                console.log(merged)
-                setDriverLists(merged);
-                setDriverLoader(false);
+                    const merged = res.data.map(dbDriver => {
+                        const socketDriver = driversFromSocket.find(
+                            d => d.id === dbDriver.id
+                        );
+                        return {
+                            ...dbDriver,
+                            latitude: socketDriver?.current?.latitude,
+                            longitude: socketDriver?.current?.longitude,
+                            heading: socketDriver?.heading,
+                        };
+                    });
 
-            } catch (err) {
-                console.error("❌ Driver fetch failed:", err);
-            } finally {
-                setDriverLoader(false);
+                    setDriverLists(merged);
+
+                } catch (err) {
+                    console.error("❌ Driver fetch failed:", err);
+                } finally {
+                    setDriverLoader(false);
+                }
             }
-        });
+        );
 
-        socketService.onDriverLocationUpdates((updates) => {
-            updateDriverLocation(updates);
-        });
+        const unsubscribeDriverUpdates =
+            socketService.onDriverLocationUpdates(updateDriverLocation);
 
         return () => {
-            socketService.clearListeners();
-            socketService.disconnect()
-        }
+            unsubscribeAllDrivers();
+            unsubscribeDriverUpdates();
+            socketService.disconnect();
+        };
     }, [setDriverLists, updateDriverLocation]);
 
     // Update markers when drivers change
@@ -101,11 +98,20 @@ export default function Map() {
         driverLists.forEach((driver) => {
             if (!driver.latitude || !driver.longitude) return;
 
+            const heading = driver.heading;
+
+            // If vehicle type is auto, rotate 180° extra
+            const finalHeading =
+                driver.vehicle_type === "Auto"
+                    ? (heading + 180)
+                    : heading;
+
+
             const icon = document.createElement("img");
             icon.src = getVehicleIcon(driver.vehicle_type);
             icon.style.width = "40px";
             icon.style.height = "50px";
-            icon.style.transform = `rotate(${driver.heading || 0}deg)`; // rotate in degrees
+            icon.style.transform = `rotate(${finalHeading}deg)`;
             icon.style.transformOrigin = "center"; // rotate around center
             icon.style.cursor = "pointer"; // Indicate interactivity
 

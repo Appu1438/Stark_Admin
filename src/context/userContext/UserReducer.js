@@ -15,7 +15,7 @@ const UserReducer = (state, action) => {
             }
         case "GET_USERS_FAILURE":
             return {
-                users: null,
+                users: [],
                 isFetching: false,
                 error: true
             }

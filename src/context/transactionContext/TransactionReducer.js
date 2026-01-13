@@ -15,7 +15,7 @@ const TransactionReducer = (state, action) => {
             }
         case "GET_TRANSACTIONS_FAILURE":
             return {
-                transactions: null,
+                transactions: [],
                 isFetching: false,
                 error: true
             }

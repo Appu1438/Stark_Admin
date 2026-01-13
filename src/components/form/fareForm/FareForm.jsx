@@ -7,39 +7,31 @@ export default function FareFormModal({ show, onClose, onSubmit, initialData }) 
     const [formData, setFormData] = useState({
         vehicle_type: "",
         baseFare: "",
+        baseFareUptoKm: "",
         perKmRate: "",
         perMinRate: "",
-        minFare: "",
-        surgeMultiplier: "",
-        district: ""
+        surgeMultiplier: 1,
+        district: "",
     });
 
-    const [searchQuery, setSearchQuery] = useState("");
-    const [filteredDistricts, setFilteredDistricts] = useState(districts);
-    const districtOptions = districts.map((d) => ({ value: d, label: d }));
+    const districtOptions = districts.map((d) => ({
+        value: d,
+        label: d,
+    }));
 
     useEffect(() => {
         if (initialData) {
-            setFormData(initialData);
-        } else {
             setFormData({
-                vehicle_type: "",
-                baseFare: "",
-                perKmRate: "",
-                perMinRate: "",
-                minFare: "",
-                surgeMultiplier: "",
-                district: ""
+                vehicle_type: initialData.vehicle_type,
+                baseFare: initialData.baseFare,
+                baseFareUptoKm: initialData.baseFareUptoKm,
+                perKmRate: initialData.perKmRate,
+                perMinRate: initialData.perMinRate,
+                surgeMultiplier: initialData.surgeMultiplier,
+                district: initialData.district,
             });
         }
     }, [initialData]);
-
-    useEffect(() => {
-        const filtered = districts.filter((d) =>
-            d.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-        setFilteredDistricts(filtered);
-    }, [searchQuery]);
 
     if (!show) return null;
 
@@ -57,13 +49,14 @@ export default function FareFormModal({ show, onClose, onSubmit, initialData }) 
         <div className="modal-overlay">
             <div className="modal">
                 <h2>{initialData ? "Edit Fare Details" : "Create Fare"}</h2>
+
                 <form onSubmit={handleSubmit}>
-                    <label>Vehicle Type:</label>
+                    <label>Vehicle Type</label>
                     <select
                         name="vehicle_type"
                         value={formData.vehicle_type}
                         onChange={handleChange}
-                        disabled={initialData}
+                        disabled={!!initialData}
                         required
                     >
                         <option value="">Select</option>
@@ -73,58 +66,70 @@ export default function FareFormModal({ show, onClose, onSubmit, initialData }) 
                         <option value="Suv">Suv</option>
                     </select>
 
-                    <label>District:</label>
+                    <label>District</label>
                     <Select
                         options={districtOptions}
-                        value={districtOptions.find(opt => opt.value === formData.district)}
-                        onChange={(selected) => setFormData({ ...formData, district: selected.value })}
-                        placeholder="Select or search district..."
+                        value={districtOptions.find(
+                            (opt) => opt.value === formData.district
+                        )}
+                        onChange={(selected) =>
+                            setFormData({ ...formData, district: selected.value })
+                        }
                         isSearchable
-                        isDisabled={initialData}
+                        isDisabled={!!initialData}
+                        placeholder="Select district"
+                    />
+
+                    <label>Base Fare (Minimum Fare)</label>
+                    <input
+                        type="number"
+                        name="baseFare"
+                        value={formData.baseFare}
+                        onChange={handleChange}
                         required
                     />
 
-
-                    <label>Base Fare:</label>
-                    <input type="number" name="baseFare" value={formData.baseFare} onChange={handleChange} required />
-
-                    <label>Per Km Rate:</label>
-                    <input type="number" name="perKmRate" value={formData.perKmRate} onChange={handleChange} required />
-
-                    <label>Per Minute Rate:</label>
-                    <input type="number" name="perMinRate" value={formData.perMinRate} onChange={handleChange} required/>
-
-                    <label>Min Fare:</label>
-                    <input type="number" name="minFare" value={formData.minFare} onChange={handleChange} required />
-
-                    <label>Surge Multiplier:</label>
-                    <input type="number" name="surgeMultiplier" value={formData.surgeMultiplier} onChange={handleChange} />
-
-                    {/* 🔍 Searchable District Dropdown */}
-                    {/* <input
-                        type="text"
-                        placeholder="Search district..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                    /> */}
-
-                    {/* <select
-                        name="district"
-                        value={formData.district}
+                    <label>Base Fare Upto (Km)</label>
+                    <input
+                        type="number"
+                        name="baseFareUptoKm"
+                        value={formData.baseFareUptoKm}
                         onChange={handleChange}
-                        size={5}
-                        style={{ width: "100%", marginTop: "5px" }}
-                    >
-                        {filteredDistricts.map((district, index) => (
-                            <option key={index} value={district}>
-                                {district}
-                            </option>
-                        ))}
-                    </select> */}
+                        required
+                    />
+
+                    <label>Per Km Rate</label>
+                    <input
+                        type="number"
+                        name="perKmRate"
+                        value={formData.perKmRate}
+                        onChange={handleChange}
+                        required
+                    />
+
+                    <label>Per Minute Rate</label>
+                    <input
+                        type="number"
+                        name="perMinRate"
+                        value={formData.perMinRate}
+                        onChange={handleChange}
+                        required
+                    />
+
+                    <label>Surge Multiplier</label>
+                    <input
+                        type="number"
+                        step="0.1"
+                        name="surgeMultiplier"
+                        value={formData.surgeMultiplier}
+                        onChange={handleChange}
+                    />
 
                     <div className="modal-actions">
                         <button type="submit">Save</button>
-                        <button type="button" onClick={onClose}>Cancel</button>
+                        <button type="button" onClick={onClose}>
+                            Cancel
+                        </button>
                     </div>
                 </form>
             </div>

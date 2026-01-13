@@ -9,6 +9,7 @@ export const useDriverStore = create((set, get) => ({
   setDriverLists: (lists) => set({ driverLists: lists }),
 
   updateDriverLocation: async (updates) => {
+    console.log(updates)
     let driverLists = [...get().driverLists];
     const newDriverIds = [];
 
@@ -21,7 +22,7 @@ export const useDriverStore = create((set, get) => ({
           ...driverLists[index],
           latitude: update.current?.latitude,
           longitude: update.current?.longitude,
-          heading: update.heading ?? driverLists[index].heading,
+          heading: update.heading,
         };
       } else {
         // 🚨 New driver detected → fetch from backend

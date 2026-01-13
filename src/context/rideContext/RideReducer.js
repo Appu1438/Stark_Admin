@@ -15,7 +15,7 @@ const RidesReducer = (state, action) => {
             }
         case "GET_RIDES_FAILURE":
             return {
-                rides: null,
+                rides: [],
                 isFetching: false,
                 error: true
             }

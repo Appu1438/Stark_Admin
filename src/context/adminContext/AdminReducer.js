@@ -15,7 +15,7 @@ const AdminReducer = (state, action) => {
             }
         case "GET_ADMINS_FAILURE":
             return {
-                admins: null,
+                admins: [],
                 isFetching: false,
                 error: true
             }

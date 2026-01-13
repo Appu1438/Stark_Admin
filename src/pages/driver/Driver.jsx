@@ -456,7 +456,7 @@ export default function Driver() {
                                 <span className="driverInfoText">Total Share: ₹{driver.totalShare.toFixed(2)}</span>
                             </div>
 
-                            <h3 className="driverInfoTitle">Fare Details</h3>
+                            {/* <h3 className="driverInfoTitle">Fare Details</h3>
                             <div className="driverInfoItem">
                                 <CurrencyRupee className="driverInfoIcon" />
                                 <span className="driverInfoText">Base Fare: ₹{driver.baseFare?.toFixed(2) || "N/A"}</span>
@@ -472,7 +472,7 @@ export default function Driver() {
                             <div className="driverInfoItem">
                                 <CurrencyRupee className="driverInfoIcon" />
                                 <span className="driverInfoText">Minimum Fare: ₹{driver.minFare?.toFixed(2) || "N/A"}</span>
-                            </div>
+                            </div> */}
 
                             {showWalletHistoryModal && (
                                 <div className="modalOverlay">

@@ -15,7 +15,7 @@ const FaresReducer = (state, action) => {
             }
         case "GET_FARES_FAILURE":
             return {
-                fares: null,
+                fares: [],
                 isFetching: false,
                 error: true
             }
@@ -27,7 +27,7 @@ const FaresReducer = (state, action) => {
             }
         case "CREATE_FARES_SUCCESS":
             return {
-                fares: [...state.fares, action.payload], // add new admin to array
+                fares: [...state.fares, action.payload], // add new fares to array
                 isFetching: false,
                 error: false,
             }
@@ -45,7 +45,6 @@ const FaresReducer = (state, action) => {
             }
         case "UPDATE_FARES_SUCCESS":
             return {
-                ...state,
                 fares: state.fares.map((fare) =>
                     fare._id === action.payload._id ? action.payload : fare
                 ),
