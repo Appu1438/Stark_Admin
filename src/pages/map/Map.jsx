@@ -59,6 +59,7 @@ export default function Map() {
                         const socketDriver = driversFromSocket.find(
                             d => d.id === dbDriver.id
                         );
+
                         return {
                             ...dbDriver,
                             latitude: socketDriver?.current?.latitude,
@@ -68,7 +69,6 @@ export default function Map() {
                     });
 
                     setDriverLists(merged);
-
                 } catch (err) {
                     console.error("❌ Driver fetch failed:", err);
                 } finally {
@@ -83,9 +83,15 @@ export default function Map() {
         return () => {
             unsubscribeAllDrivers();
             unsubscribeDriverUpdates();
-            socketService.disconnect();
         };
-    }, [setDriverLists, updateDriverLocation]);
+    }, []);
+
+    const driversWithCoords = driverLists.filter(
+        (driver) =>
+            typeof driver.latitude === "number" &&
+            typeof driver.longitude === "number"
+    );
+
 
     // Update markers when drivers change
     useEffect(() => {
@@ -172,33 +178,39 @@ export default function Map() {
 
             <div className={`driverPanel ${isPanelOpen ? "open" : "closed"}`}>
                 <div className="panel-content">
-                    <h2 className="panelTitle">Live Drivers</h2>
+                    <h2 className="panelTitle"> Live Drivers ({driversWithCoords.length})
+                    </h2>
                     <ul className="driverList">
+
                         {driverLoader ? (
                             <li className="loadingItem">Loading drivers...</li>
-                        ) : driverLists.length === 0 ? (
+                        ) : driversWithCoords.length === 0 ? (
                             <li className="noDrivers">No active drivers found.</li>
                         ) : (
-                            driverLists.map((driver) => {
-                                const hasCoords = driver.latitude && driver.longitude;
-                                if (hasCoords) {
-                                    return (
-                                        <Link className="link" to={`/driver/${driver.id}`} key={driver?.id} state={{ driverId: driver?.id }}>
-                                            <li className="driverItem">
-                                                <img src={driver?.profilePic || getAvatar(driver?.gender)} className="panelProfile" alt="" />
-                                                <div>
-                                                    <p className="driverName">{driver.name}</p>
-                                                    <p className="driverCoords">
-                                                        {driver?.registration_number} , {driver.vehicle_type}
-                                                    </p>
-                                                </div>
-                                            </li>
-                                        </Link>
-                                    );
-                                }
-                                return null;
-                            })
+                            driversWithCoords.map((driver) => (
+                                <Link
+                                    className="link"
+                                    to={`/driver/${driver.id}`}
+                                    key={driver.id}
+                                    state={{ driverId: driver.id }}
+                                >
+                                    <li className="driverItem">
+                                        <img
+                                            src={driver.profilePic || getAvatar(driver.gender)}
+                                            className="panelProfile"
+                                            alt=""
+                                        />
+                                        <div>
+                                            <p className="driverName">{driver.name}</p>
+                                            <p className="driverCoords">
+                                                {driver.registration_number}, {driver.vehicle_type}
+                                            </p>
+                                        </div>
+                                    </li>
+                                </Link>
+                            ))
                         )}
+
                     </ul>
                 </div>
             </div>
