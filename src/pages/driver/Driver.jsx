@@ -317,6 +317,25 @@ export default function Driver() {
                                 <Wc className="driverInfoIcon" />
                                 <span className="driverInfoText">{driver.gender || "N/A"}</span>
                             </div>
+
+                            <h3 className="driverInfoTitle">Device Details</h3>
+                            <div className="driverInfoItem">
+                                <LocalTaxi className="driverInfoIcon" />
+                                <span className="driverInfoText">Brand: {driver?.activeDevice?.brand}</span>
+                            </div>
+                            <div className="driverInfoItem">
+                                <Palette className="driverInfoIcon" />
+                                <span className="driverInfoText">Model: {driver?.activeDevice?.model}</span>
+                            </div>
+                            <div className="driverInfoItem">
+                                <Palette className="driverInfoIcon" />
+                                <span className="driverInfoText">OS Name: {driver?.activeDevice?.osName}</span>
+                            </div>
+                            <div className="driverInfoItem">
+                                <Person className="driverInfoIcon" />
+                                <span className="driverInfoText">OS Build: {driver?.activeDevice?.osBuildId}</span>
+                            </div>
+
                             <h3 className="driverInfoTitle">Vehicle Details</h3>
                             <div className="driverInfoItem">
                                 <LocalTaxi className="driverInfoIcon" />

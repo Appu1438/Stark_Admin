@@ -2,6 +2,8 @@ import React, { useMemo, useState } from "react";
 import { Search } from "@mui/icons-material";
 import { useTable, useSortBy, usePagination } from "react-table";
 import "./dataTable.css";
+import { AuthContext } from "../../context/authContext/AuthContext";
+import { useContext } from "react";
 
 export default function DataTable({
     title = "Table",
@@ -18,6 +20,8 @@ export default function DataTable({
 }) {
     const [search, setSearch] = useState("");
     const [filter, setFilter] = useState("");
+    const { user } = useContext(AuthContext); // 👈 logged-in admin
+
 
     // 🔍 Combined Search + Filter Logic
     const filteredData = useMemo(() => {
@@ -50,7 +54,9 @@ export default function DataTable({
         }
 
         // 🔹 Filter logic (driver-specific)
+        const adminId = user?._id?.toString();
         switch (filter) {
+
             case "License Expired":
                 result = result.filter(
                     (item) =>
@@ -73,6 +79,16 @@ export default function DataTable({
                         item.insurance_expiry &&
                         new Date(item.insurance_expiry) < now
                 );
+                break;
+            case "Mine":
+                result = result.filter((item) => {
+                    const handledById =
+                        typeof item.adminHandledBy === "string"
+                            ? item.adminHandledBy
+                            : item.adminHandledBy?._id;
+
+                    return handledById?.toString() === adminId;
+                });
                 break;
 
             default:

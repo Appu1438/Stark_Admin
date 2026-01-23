@@ -22,6 +22,7 @@ import Profile from "./pages/profile/Profile";
 import TransactionList from "./pages/transactionList/transactionList";
 import RideList from "./pages/rideList/RideList";
 import FareList from "./pages/fareList/FareList";
+import ComplaintList from "./pages/complaintsList/ComplaintList";
 
 
 function Layout() {
@@ -74,6 +75,7 @@ function App() {
             <Route path="/transactions" element={<TransactionList />} />
             <Route path="/rides" element={<RideList />} />
             <Route path="/fares" element={<FareList />} />
+            <Route path="/complaints" element={<ComplaintList />} />
           </Route>
         ) : (
           <Route path="*" element={<Navigate to="/login" />} />

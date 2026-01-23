@@ -31,7 +31,8 @@ import {
   CarRentalSharp,
   LocalTaxiOutlined,
   AttachMoneyTwoTone,
-  CurrencyRupee
+  CurrencyRupee,
+  MessageOutlined
 } from '@mui/icons-material';
 import { Link } from "react-router-dom";
 import { useContext, useState } from "react";
@@ -133,6 +134,17 @@ export default function Sidebar({ className, onMenuClick }) {
               >
                 <MapOutlined className="sidebarIcon" />
                 Maps
+              </li>
+            </Link>
+
+            <Link to="/complaints" className="link">
+
+              <li
+                className={`sidebarListItem ${activeMenu === "complaints" ? "active" : ""}`}
+                onClick={() => handleMenuClick("complaints")}
+              >
+                <MessageOutlined className="sidebarIcon" />
+                Complaints
               </li>
             </Link>
 

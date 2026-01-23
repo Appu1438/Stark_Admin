@@ -9,8 +9,13 @@ import FeaturedInfo from "../../components/featuredInfo/FeaturedInfo";
 import './rideList.css'
 import { RidesContext } from "../../context/rideContext/RideContext";
 import { getRides } from "../../context/rideContext/apiCalls";
+import { formatDateTime } from "../../utils/formatDate";
+import RideViewModal from "../../components/rideModal/RideViewModal";
+import { useState } from "react";
 export default function RideList() {
     const { rides, dispatch } = useContext(RidesContext);
+    const [selectedRide, setSelectedRide] = useState(null);
+
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -34,6 +39,9 @@ export default function RideList() {
                 },
             },
             { Header: "Status", accessor: "status" },
+            {
+                Header: "Last Updated", accessor: "updatedAt", Cell: ({ value }) => formatDateTime(value),
+            },
             { Header: "Total Fare", accessor: "totalFare" },
             { Header: "Driver Share", accessor: "driverEarnings" },
             { Header: "Platform Share", accessor: "platformShare" },
@@ -42,11 +50,6 @@ export default function RideList() {
         ],
         []
     );
-
-    const handleEditClick = (ride) => {
-        navigate(`/ride/${ride._id}`, { state: { rideId: ride._id } });
-    };
-
     return (
         <div className="container">
             <div>
@@ -56,13 +59,21 @@ export default function RideList() {
                     columns={columns}
                     showCreate={false}
                     buttonName={'View'}
-                    onButtonClick={handleEditClick}
+                    onButtonClick={(ride) => {
+                        setSelectedRide(ride)
+                    }}
                     searchPlaceholder="Search by name, email, or phone..."
                     showFilter={true}
-                    filterOptions={["Booked", "Processing", "Ongoing", "Completed"]}
+                    filterOptions={["Booked", "Processing", "Arrived", "Ongoing", "Reached", "Completed", "Cancelled"]}
                     filterKey="status"
                 />
             </div>
+            {selectedRide && (
+                <RideViewModal
+                    ride={selectedRide}
+                    onClose={() => setSelectedRide(null)}
+                />
+            )}
         </div>
     );
 }

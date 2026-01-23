@@ -1,0 +1,131 @@
+.container {
+    flex: 4;
+}
+
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.status-badge.pending {
+    background-color: #fff3cd;
+    color: #856404;
+}
+
+.status-badge.in\ review {
+    background-color: #d1ecf1;
+    color: #0c5460;
+}
+
+.status-badge.resolved {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.status-badge.rejected {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
+.priority.low {
+    color: green;
+}
+
+.priority.medium {
+    color: orange;
+}
+
+.priority.high {
+    color: red;
+}
+
+/* ---------- Action Buttons ---------- */
+.action-buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.action-buttons button {
+    border: none;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* View Button */
+.btn-view {
+    background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    color: #fff;
+}
+
+.btn-view:hover {
+    opacity: 0.9;
+}
+
+/* In Review Button */
+.btn-review {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: #fff;
+}
+
+.btn-review:hover {
+    opacity: 0.9;
+}
+
+/* Resolve Button */
+.btn-resolve {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+}
+
+.btn-resolve:hover {
+    opacity: 0.9;
+}
+
+/* ---------- Status Badges ---------- */
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.status-badge.pending {
+    background: #fff7ed;
+    color: #c2410c;
+}
+
+.status-badge.in\ review {
+    background: #ecfeff;
+    color: #0369a1;
+}
+
+.status-badge.resolved {
+    background: #f0fdf4;
+    color: #15803d;
+}
+
+/* ---------- Priority ---------- */
+.priority.low {
+    color: #16a34a;
+    font-weight: 600;
+}
+
+.priority.medium {
+    color: #ca8a04;
+    font-weight: 600;
+}
+
+.priority.high {
+    color: #dc2626;
+    font-weight: 700;
+}
+

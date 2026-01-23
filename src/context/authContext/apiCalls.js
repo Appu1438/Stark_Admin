@@ -49,7 +49,7 @@ export const logout = async (user) => {
             localStorage.setItem('activeMenu', 'home')
         }
     } catch (error) {
-        toast.error("Logout failed", { autoClose: 3000 });
+        // toast.error("Logout failed", { autoClose: 3000 });
         console.log(error)
     }
 }
